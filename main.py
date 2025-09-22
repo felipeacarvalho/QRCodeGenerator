@@ -12,15 +12,13 @@ for versionIdx in versions:
         selectedVersion = versionIdx
         break
 
-binSelectedMode = modes[messageType]
+binSelectedMode = [modes[messageType]]
 
 modeEncodingLength = modeEncodingLengths[messageType][0 if selectedVersion < 10 else 1 if selectedVersion < 27 else 2 if selectedVersion < 41 else -1]
 if modeEncodingLength == -1:
     raise ValueError("Version not supported")
 
-binMessageLength = getBinaryFromInteger(messageLength, modeEncodingLength)
-
-binMessage = ''.join(format(ord(i), '08b') for i in message)
+binMessageLength = [getBinaryFromInteger(messageLength, modeEncodingLength)]
 
 encodeGroups = []
 if messageLength % modeStorage[messageType]["multiple"]["charactersNumber"] == 0:
@@ -57,9 +55,11 @@ print(encodeGroups)
 
 multipleBitGroupLength = modeStorage[messageType]["multiple"]["charactersNumber"] * modeStorage[messageType]["multiple"]["bitsPerCharacter"]
 remainingBitGroupLength = modeStorage[messageType]["remaining"]["charactersNumber"] * modeStorage[messageType]["remaining"]["bitsPerCharacter"]
-print(multipleBitGroupLength, remainingBitGroupLength)
 
+for group in encodeGroups:
 
-bitStream = [[binSelectedMode], [binMessageLength], [binMessage]]
+binMessage = []
+
+bitStream = [binSelectedMode, binMessageLength, binMessage]
 
 print(bitStream)
