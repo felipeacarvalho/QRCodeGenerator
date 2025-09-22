@@ -57,6 +57,7 @@ multipleBitGroupLength = modeStorage[messageType]["multiple"]["charactersNumber"
 remainingBitGroupLength = modeStorage[messageType]["remaining"]["charactersNumber"] * modeStorage[messageType]["remaining"]["bitsPerCharacter"]
 
 for group in encodeGroups:
+    if len(group) == 2:
 
 binMessage = []
 
