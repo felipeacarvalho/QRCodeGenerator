@@ -1,3 +1,25 @@
+def getTotalDataCodewordBits(table:dict, version: int, errorCorrectionLevel: str) -> int:
+    specs: dict = table[version][errorCorrectionLevel]
+
+    group1Blocks, group1CodewordsPerBlock = specs["group1"]["blocks"], specs["group1"]["codewordsPerBlock"]
+    group2Blocks, group2CodewordsPerBlock = specs["group2"]["blocks"], specs["group2"]["codewordsPerBlock"]
+
+    return (group1Blocks * group1CodewordsPerBlock + group2Blocks * group2CodewordsPerBlock) * 8
+
+def getTerminatorBits(totalBits: int, currentBits: int) -> str:
+    remainingBits = totalBits - currentBits
+
+    if remainingBits >= 4:
+        terminatorBits = "0b" + 4 * "0"
+
+    elif 0 < remainingBits < 4:
+        terminatorBits = "0b" + remainingBits * "0"
+    
+    else:
+        terminatorBits = "0b"
+
+    return terminatorBits
+
 def getBinaryFromInteger(data: int | str, length: int) -> int:
     if isinstance(data, str):
         data = int(data)
@@ -17,52 +39,10 @@ def getBinaryFromAscii(data: str) -> str:
     return ''.join(format(ord(i), '08b') for i in data)
 
 def encodeAlphanumeric(mode: str, groupLength: int, data: str) -> str:
-    ALPHANUMERIC_TABLE: dict[str, int] = {
-        "0": 0,
-        "1": 1,
-        "2": 2,
-        "3": 3,
-        "4": 4,
-        "5": 5,
-        "6": 6,
-        "7": 7,
-        "8": 8,
-        "9": 9,
-        "A": 10,
-        "B": 11,
-        "C": 12,
-        "D": 13,
-        "E": 14,
-        "F": 15,
-        "G": 16,
-        "H": 17,
-        "I": 18,
-        "J": 19,
-        "K": 20,
-        "L": 21,
-        "M": 22,
-        "N": 23,
-        "O": 24,
-        "P": 25,
-        "Q": 26,
-        "R": 27,
-        "S": 28,
-        "T": 29,
-        "U": 30,
-        "V": 31,
-        "W": 32,
-        "X": 33,
-        "Y": 34,
-        "Z": 35,
-        " ": 36,
-        "$": 37,
-        "%": 38,
-        "*": 39,
-        "+": 40,
-        "-": 41,
-        ".": 42,
-        "/": 43,
-        ":": 44
+    ALPHANUMERIC_TABLE: dict[str, int] = { 
+        "0": 0, "1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, 
+        "A": 10, "B": 11, "C": 12, "D": 13, "E": 14, "F": 15, "G": 16, "H": 17, "I": 18, "J": 19, "K": 20, "L": 21, "M": 22, "N": 23, "O": 24, "P": 25, "Q": 26, "R": 27, "S": 28, "T": 29, "U": 30, "V": 31, "W": 32, "X": 33, "Y": 34, "Z": 35, 
+        " ": 36, "$": 37, "%": 38, "*": 39, "+": 40, "-": 41, ".": 42, "/": 43, ":": 44
     }
 
     if mode == "multiple":
@@ -79,12 +59,12 @@ def encodeAlphanumeric(mode: str, groupLength: int, data: str) -> str:
     binaryKeysSum = bin(keysSum)[2:]
 
     if len(binaryKeysSum) < groupLength:
-        encodedKeys = "0" * (groupLength - len(binaryKeysSum)) + binaryKeysSum
+        encodedKeys = "0b" + "0" * (groupLength - len(binaryKeysSum)) + binaryKeysSum
 
     elif len(binaryKeysSum) == groupLength:
-        encodedKeys = binaryKeysSum
+        encodedKeys = "0b" + binaryKeysSum
 
     else:
         raise ValueError("Data too long for specified length")
-
-print(encodeAlphanumeric("multiple", 11, "HE"))
+    
+    return encodedKeys

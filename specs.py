@@ -1,23 +1,32 @@
 versions = {
     1: {
         "L": {
-            "dataBits": 152, 
             "numeric": 41, 
             "alphanumeric": 25,
             "binary": 17, 
             "kanji": 10
         }, 
         "M": {
-            "dataBits": 128, 
             "numeric": 34, 
             "alphanumeric": 20,
             "binary": 14, 
             "kanji": 8
+        },
+        "Q": {
+            "numeric": 27, 
+            "alphanumeric": 16,
+            "binary": 11, 
+            "kanji": 7
+        }, 
+        "H": {
+            "numeric": 17, 
+            "alphanumeric": 10,
+            "binary": 7, 
+            "kanji": 4
         }
     }, 
     2: {
         "L": {
-            "dataBits": 272, 
             "numeric": 77, 
             "alphanumeric": 47,
             "binary": 32, 
@@ -62,5 +71,100 @@ modeStorage: dict = {
     "kanji": {
         "charactersNumber": 1,
         "bitsPerCharacter": 10
+    }
+}
+
+errorCorrections: dict = {
+    1: {
+        "L": {
+            "group1": {
+                "blocks": 1,
+                "codewordsPerBlock": 19,
+            }, 
+            "group2": {
+                "blocks": 0,
+                "codewordsPerBlock": 0,
+            },
+            "ecCodewordsPerBlock": 7,
+        },
+        "M": {
+            "group1": {
+                "blocks": 1,
+                "codewordsPerBlock": 16,
+            }, 
+            "group2": {
+                "blocks": 0,
+                "codewordsPerBlock": 0,
+            },
+            "ecCodewordsPerBlock": 10,
+        },
+        "Q": {
+            "group1": {
+                "blocks": 1,
+                "codewordsPerBlock": 13,
+            }, 
+            "group2": {
+                "blocks": 0,
+                "codewordsPerBlock": 0,
+            },
+            "ecCodewordsPerBlock": 13,
+        },
+        "H": {
+            "group1": {
+                "blocks": 1,
+                "codewordsPerBlock": 9,
+            }, 
+            "group2": {
+                "blocks": 0,
+                "codewordsPerBlock": 0,
+            },
+            "ecCodewordsPerBlock": 17,
+        }
+    }, 
+    2: {
+        "L": {
+            "group1": {
+                "blocks": 1,
+                "codewordsPerBlock": 34,
+            }, 
+            "group2": {
+                "blocks": 0,
+                "codewordsPerBlock": 0,
+            },
+            "ecCodewordsPerBlock": 10,
+        },
+        "M": {
+            "group1": {
+                "blocks": 1,
+                "codewordsPerBlock": 28,
+            }, 
+            "group2": {
+                "blocks": 0,
+                "codewordsPerBlock": 0,
+            },
+            "ecCodewordsPerBlock": 16,
+        },
+        "Q": {
+            "group1": {
+                "blocks": 1,
+                "codewordsPerBlock": 2,
+            }, 
+            "group2": {
+                "blocks": 0,
+                "codewordsPerBlock": 0,
+            },
+            "ecCodewordsPerBlock": 22,
+        },
+        "H": {
+            "group1": {
+                "blocks": 1,
+                "codewordsPerBlock": 16,
+            }, 
+            "group2": {
+                "blocks": 0,
+                "codewordsPerBlock": 0,
+            },
+            "ecCodewordsPerBlock": 28,
+        }
     }
 }
