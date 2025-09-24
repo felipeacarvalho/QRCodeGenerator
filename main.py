@@ -1,4 +1,5 @@
 from specs import *
+import errorCorrection as ec
 from lib import *
 
 message = "Hello World"
@@ -12,8 +13,15 @@ currentBits = 0
 for versionIdx in versions:
     if versions[versionIdx][errorCorrectionLevel][messageType] >= messageLength:
         selectedVersion = versionIdx
-        totalVersionCodewordBits = getTotalDataCodewordBits(errorCorrections, selectedVersion, errorCorrectionLevel)
+        totalVersionCodewordBits = getTotalDataCodewordBits(ec.errorCorrections, selectedVersion, errorCorrectionLevel)
         break
+
+messageSpecs = {
+    "messageLength": messageLength,
+    "messageType": messageType, 
+    "selectedVersion": selectedVersion, 
+    "errorCorrectionLevel": errorCorrectionLevel
+}
 
 binSelectedMode = [modes[messageType]]
 currentBits += len(binSelectedMode[0]) - 2
@@ -120,7 +128,12 @@ if len(bitString) < totalVersionCodewordBits:
             bitString += padBytes2
 
     currentBits += repetitions * 8
-    
+
+bitStream = []
+for i in range(0, len(bitString), 8):
+    print(i)
+    bitStream.append("0b" + bitString[i:i+8])
+
 print(bitString)
-print(getTotalDataCodewordBits(errorCorrections, selectedVersion, errorCorrectionLevel))
-print(currentBits)
+print(bitStream)
+print(len(bitStream))
