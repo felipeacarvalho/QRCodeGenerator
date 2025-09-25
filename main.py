@@ -134,6 +134,7 @@ for i in range(0, len(bitString), 8):
     print(i)
     bitStream.append("0b" + bitString[i:i+8])
 
+print(messageSpecs)
 print(bitString)
 print(bitStream)
 print(len(bitStream))
