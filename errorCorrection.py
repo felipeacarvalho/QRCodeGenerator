@@ -106,7 +106,7 @@ errorCorrections: dict = {
     }
 }
 
-def sepparateGroups(specifications:dict, data:list[str]) -> list[list[str]]:
+def separateGroups(specifications:dict, data:list[str]) -> list[list[str]]:
     selectedVersion = specifications["selectedVersion"]
     errorCorrectionLevel = specifications["errorCorrectionLevel"]
     
@@ -115,7 +115,7 @@ def sepparateGroups(specifications:dict, data:list[str]) -> list[list[str]]:
     group1Blocks = errorCorrections[selectedVersion][errorCorrectionLevel]["group1"]["blocks"]
     group1Codewords = errorCorrections[selectedVersion][errorCorrectionLevel]["group1"]["codewordsPerBlock"]
     
-    indexSum = -1
+    indexSum = 0
     for i in range(group1Blocks):
         indexSum += group1Codewords
         groupBlocks.append(indexSum)
@@ -137,22 +137,28 @@ def sepparateGroups(specifications:dict, data:list[str]) -> list[list[str]]:
         blocks.append(codewordBlocks)
     
     groups = []
+
+    group1 = []
     if group1Blocks > 0:
         for i in range(group1Blocks):
-            groups.append(blocks[i])
+            group1.append(blocks[i])
     else:
-        groups.append([])
+        group1.append([])
 
+    group2 = []
     if group2Blocks > 0:
         for i in range(group2Blocks):
             i += group1Blocks
-            groups.append(blocks[i])
+            group2.append(blocks[i])
     else:
-        groups.append([])
+        group2.append([])
+
+    groups.append(group1)
+    groups.append(group2)
 
     print(groups)
 
-sepparateGroups({'messageLength': 11, 'messageType': 'alphanumeric', 'selectedVersion': 5, 'errorCorrectionLevel': 'Q'}, ["0b01000011",
+separateGroups({'messageLength': 11, 'messageType': 'alphanumeric', 'selectedVersion': 5, 'errorCorrectionLevel': 'Q'}, ["0b01000011",
 "0b01010101",
 "0b01000110",
 "0b10000110",
