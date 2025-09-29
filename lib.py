@@ -1,3 +1,47 @@
+def xor(num1:str, num2:str) -> str:
+    bin1, bin2 = num1[2:], num2[2:]
+    lenBin1, lenBin2 = len(bin1), len(bin2)
+
+    if lenBin1 != lenBin2:
+        maxLen, minLen = max(lenBin1, lenBin2), min(lenBin1, lenBin2)
+        digitsToAdd = maxLen - minLen
+
+        if lenBin1 < lenBin2:
+            bin1 = "0" * digitsToAdd + bin1
+        elif lenBin1 > lenBin2:
+            bin2 = "0" * digitsToAdd + bin2
+
+    try:
+        desiredLen = maxLen
+
+    except:
+        desiredLen = 8
+
+    binResult = ""
+    for idx in range(desiredLen):
+        d1, d2 = bin1[idx], bin2[idx]
+
+        binResult += str((int(d1) + int(d2)) % 2)
+
+    if len(binResult) > 8:
+        binResult = binResult[-8:]
+
+    return "0b" + binResult
+
+def modulo285(num:str):
+    binNum = num[2:]
+
+    while True:
+
+        for i in range(1, 255):
+
+        if len(binNum) > 8:
+            break
+
+    if num1 >= 512:
+        return xor(num1, "0b100011101")
+    elif num1 >= 256:
+
 def getTotalDataCodewordBits(table:dict, version: int, errorCorrectionLevel: str) -> int:
     specs: dict = table[version][errorCorrectionLevel]
 
@@ -68,3 +112,7 @@ def encodeAlphanumeric(mode: str, groupLength: int, data: str) -> str:
         raise ValueError("Data too long for specified length")
     
     return encodedKeys
+
+print(xor("0b00101101", "0b01100011"))
+
+
