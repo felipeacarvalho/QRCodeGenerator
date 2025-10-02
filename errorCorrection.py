@@ -106,7 +106,7 @@ errorCorrections: dict = {
     }
 }
 
-def separateGroups(specifications:dict, data:list[str]) -> list[list[str]]:
+def separateGroups(data:list[str], specifications:dict) -> list[list[str]]:
     selectedVersion = specifications["selectedVersion"]
     errorCorrectionLevel = specifications["errorCorrectionLevel"]
     
@@ -126,8 +126,6 @@ def separateGroups(specifications:dict, data:list[str]) -> list[list[str]]:
     for i in range(group2Blocks):
         indexSum += group2Codewords
         groupBlocks.append(indexSum)
-
-    print(groupBlocks)
 
     blocks = []
     for idx in range(len(groupBlocks)):
@@ -156,9 +154,35 @@ def separateGroups(specifications:dict, data:list[str]) -> list[list[str]]:
     groups.append(group1)
     groups.append(group2)
 
-    print(groups)
+    return groups
 
-separateGroups({'messageLength': 11, 'messageType': 'alphanumeric', 'selectedVersion': 5, 'errorCorrectionLevel': 'Q'}, ["0b01000011",
+def convertDecimal(data:list) -> list:
+    dataGroup1 = data[0]
+
+    group1Blocks = []
+    for block in dataGroup1:
+        bytesList = []
+
+        for byte in block:
+            bytesList.append(int(byte, 2))
+
+        group1Blocks.append(bytesList)
+    
+
+    dataGroup2 = data[1]
+
+    group2Blocks = []
+    for block in dataGroup2:
+        bytesList = []
+
+        for byte in block:
+            bytesList.append(int(byte, 2))
+
+        group2Blocks.append(bytesList)
+
+    return [group1Blocks, group2Blocks]
+
+'''groupTest = separateGroups({'messageLength': 11, 'messageType': 'alphanumeric', 'selectedVersion': 5, 'errorCorrectionLevel': 'Q'}, ["0b01000011",
 "0b01010101",
 "0b01000110",
 "0b10000110",
@@ -219,4 +243,11 @@ separateGroups({'messageLength': 11, 'messageType': 'alphanumeric', 'selectedVer
 "0b00010001",
 "0b11101100",
 "0b00010001",
-"0b11101100"])
+"0b11101100"])'''
+
+def appendErrorCorrection(data:list, specifications:dict) -> list:
+    groups = separateGroups(data, specifications)
+
+    coefficients = convertDecimal(groups)
+
+    print(coefficients)

@@ -6,7 +6,7 @@ message = "Hello World"
 messageLength = len(message)
 messageType = "alphanumeric"
 
-errorCorrectionLevel = "Q"
+errorCorrectionLevel = "M"
 
 currentBits = 0
 
@@ -138,3 +138,7 @@ print(messageSpecs)
 print(bitString)
 print(bitStream)
 print(len(bitStream))
+
+from errorCorrection import appendErrorCorrection
+
+appendErrorCorrection(bitStream, messageSpecs)

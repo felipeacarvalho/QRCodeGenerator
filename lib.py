@@ -1,3 +1,5 @@
+import math
+
 def xor(num1:str, num2:str) -> str:
     bin1, bin2 = num1[2:], num2[2:]
     lenBin1, lenBin2 = len(bin1), len(bin2)
@@ -28,10 +30,24 @@ def xor(num1:str, num2:str) -> str:
 
     return "0b" + binResult
 
-def modulo285(num:str):
+'''def modulo285(num:str):
     binNum = num[2:]
 
-    while True:
+    if int(num, 2) < 0:
+        raise ValueError("Handle negative for modulo285")
+
+    if 0 <= int(num, 2) <= 255:
+        ...
+
+    else:
+        div = 0
+        while True:
+            if 0 <= int(num, 2) <= 255:
+                break
+
+            else:
+
+        
 
         for i in range(1, 255):
 
@@ -40,7 +56,8 @@ def modulo285(num:str):
 
     if num1 >= 512:
         return xor(num1, "0b100011101")
-    elif num1 >= 256:
+    elif num1 >= 256:'''
+
 
 def getTotalDataCodewordBits(table:dict, version: int, errorCorrectionLevel: str) -> int:
     specs: dict = table[version][errorCorrectionLevel]
